@@ -1,17 +1,25 @@
-import java.awt.*;
-
 public class Main {
+
+    private static final AppStartFrame appStartFrame = new AppStartFrame();
 
     private static String name;
     private static String surname;
-    private static final FirstTest firstTest = new FirstTest();
+    private static float points;
 
     public static void main(String[] args) {
-        EventQueue.invokeLater(() -> new StartFrame().setVisible(true));
+        appStartFrame.setVisible(true);
     }
 
-    public static void setVisibleFirstTest() {
-        firstTest.setVisible(true);
+    public static void setVisibileStartFrame() {
+        appStartFrame.setVisible(true);
+    }
+
+    public static void setPoints(float points) {
+        Main.points += points;
+    }
+
+    public static float getPoints() {
+        return points;
     }
 
     public static void setName(String name) {
@@ -29,6 +37,8 @@ public class Main {
     public String getSurname() {
         return surname;
     }
+
+
 }
 
 

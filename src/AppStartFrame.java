@@ -11,14 +11,15 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class StartFrame extends JFrame {
+public class AppStartFrame extends JFrame {
 
     private final ArrayList<JPanel> panels = new ArrayList<>();
+    private AppInformationFrame appInformationFrame;
     private JButton startButton;
     private JTextArea textInfo;
     private JTextField nameText, surnameText;
 
-    public StartFrame() {
+    public AppStartFrame() {
         super.setTitle("Psychomotor Performance Tester | Start Menu");
         initUI();
     }
@@ -28,7 +29,7 @@ public class StartFrame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
         this.setSize(800, 700);
-        
+
         createPanels();
         createButtons();
         createLabelsAndFields();
@@ -60,8 +61,8 @@ public class StartFrame extends JFrame {
             @Override
             public void focusGained(FocusEvent e) {
                 if (surnameText.getText().length() >= 1) {
-                    surnameText.setText("");
                     surnameText.setForeground(Color.BLACK);
+                    surnameText.setText("");
                 }
             }
 
@@ -78,22 +79,20 @@ public class StartFrame extends JFrame {
     }
 
     private void startButtonClick() {
-
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if((nameText.getText().length() <= 2 || nameText.getText().equals("Name"))
+                if ((nameText.getText().length() <= 2 || nameText.getText().equals("Name"))
                         && (surnameText.getText().length() <= 2 || surnameText.getText().equals("Surname"))) {
-                    JOptionPane.showMessageDialog(StartFrame.this,
+                    JOptionPane.showMessageDialog(AppStartFrame.this,
                             "Please, enter valid credentials to start the tests. " + nameText.getText()
                                     + " " + surnameText.getText() + " is invalid. ");
-                }
-                else {
+                } else {
                     Main.setName(nameText.getText());
                     Main.setSurname(surnameText.getText());
-
-                    StartFrame.this.dispose();
-                    Main.setVisibleFirstTest();
+                    appInformationFrame = new AppInformationFrame("First");
+                    appInformationFrame.setVisible(true);
+                    AppStartFrame.this.dispose();
                 }
 
             }
@@ -103,11 +102,11 @@ public class StartFrame extends JFrame {
 
     private void createLabelsAndFields() {
         JLabel labelLogo = new JLabel("Psychomotor Performance Tester", JLabel.LEFT);
-        labelLogo.setFont(new Font("Verdana", Font.PLAIN, 30));
-        labelLogo.setBorder(new EmptyBorder(40,0,0,0));
+        labelLogo.setFont(new Font("Calibri", Font.BOLD, 30));
+        labelLogo.setBorder(new EmptyBorder(40, 0, 0, 0));
 
-        textInfo = new JTextArea(15,20);
-        textInfo.setFont(new Font("Verdana", Font.PLAIN, 15));
+        textInfo = new JTextArea(15, 20);
+        textInfo.setFont(new Font("Calibri", Font.PLAIN, 20));
         textInfo.setHighlighter(null);
         textInfo.setEditable(false);
         loadInfoData();
@@ -118,8 +117,8 @@ public class StartFrame extends JFrame {
         nameText.setBounds(100, 20, 200, 40);
         surnameText.setBounds(100, 20, 200, 40);
 
-        nameText.setFont(new Font("Verdana", Font.PLAIN, 25));
-        surnameText.setFont(new Font("Verdana", Font.PLAIN, 25));
+        nameText.setFont(new Font("Calibri", Font.PLAIN, 30));
+        surnameText.setFont(new Font("Calibri", Font.PLAIN, 30));
 
         nameText.setHorizontalAlignment(JTextField.CENTER);
         surnameText.setHorizontalAlignment(JTextField.CENTER);
@@ -149,12 +148,10 @@ public class StartFrame extends JFrame {
             BufferedReader reader = new BufferedReader(fr);
 
             String line;
-            while ((line = reader.readLine()) != null)
-            {
-                    textInfo.append(line + "\n");
+            while ((line = reader.readLine()) != null) {
+                textInfo.append(line + "\n");
             }
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             System.err.println(ioe);
             System.exit(1);
         }
@@ -163,7 +160,7 @@ public class StartFrame extends JFrame {
 
     private void createButtons() {
         StyledButtonUI.setDesign(0);
-        
+
         startButton = new JButton("START");
         startButton.setUI(new StyledButtonUI());
         panels.get(2).add(startButton);
@@ -187,7 +184,7 @@ public class StartFrame extends JFrame {
         panels.add(panel2);
         panels.add(panel3);
 
-        for (JPanel panel: panels) {
+        for (JPanel panel : panels) {
             panel.setBackground(Color.WHITE);
             panel.setLayout(flowLayout);
         }
@@ -196,6 +193,4 @@ public class StartFrame extends JFrame {
         this.add(panel2, BorderLayout.NORTH);
         this.add(panel3, BorderLayout.SOUTH);
     }
-
-
 }
