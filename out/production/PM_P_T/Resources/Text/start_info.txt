@@ -1,0 +1,7 @@
+This application will test your psychomotor performance.
+You will have to go through 3 tests to get the results.
+Before every actual test, you will be instructed by specially prepared training phase.
+At any moment, you can get help by clicking on the appropriate option in the menu bar.
+
+Good luck!
+

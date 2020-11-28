@@ -4,12 +4,18 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class StartFrame extends JFrame {
 
     private final ArrayList<JPanel> panels = new ArrayList<>();
     private JButton startButton;
+    private JTextArea textInfo;
     private JTextField nameText, surnameText;
 
     public StartFrame() {
@@ -27,7 +33,48 @@ public class StartFrame extends JFrame {
         createButtons();
         createLabelsAndFields();
 
+        focusSetTextFields();
         startButtonClick();
+    }
+
+    private void focusSetTextFields() {
+        nameText.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (nameText.getText().length() >= 1) {
+                    nameText.setForeground(Color.BLACK);
+                    nameText.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (nameText.getText().isEmpty()) {
+                    nameText.setForeground(Color.GRAY);
+                    nameText.setText("Name");
+                }
+            }
+        });
+
+        surnameText.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (surnameText.getText().length() >= 1) {
+                    surnameText.setText("");
+                    surnameText.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (surnameText.getText().isEmpty()) {
+                    surnameText.setForeground(Color.GRAY);
+                    surnameText.setText("Surname");
+                }
+            }
+        });
+
+
     }
 
     private void startButtonClick() {
@@ -45,8 +92,8 @@ public class StartFrame extends JFrame {
                     Main.setName(nameText.getText());
                     Main.setSurname(surnameText.getText());
 
+                    StartFrame.this.dispose();
                     Main.setVisibleFirstTest();
-
                 }
 
             }
@@ -58,9 +105,12 @@ public class StartFrame extends JFrame {
         JLabel labelLogo = new JLabel("Psychomotor Performance Tester", JLabel.LEFT);
         labelLogo.setFont(new Font("Verdana", Font.PLAIN, 30));
         labelLogo.setBorder(new EmptyBorder(40,0,0,0));
-        panels.get(1).add(labelLogo);
 
-        Box container = Box.createVerticalBox();
+        textInfo = new JTextArea(15,20);
+        textInfo.setFont(new Font("Verdana", Font.PLAIN, 15));
+        textInfo.setHighlighter(null);
+        textInfo.setEditable(false);
+        loadInfoData();
 
         nameText = new JTextField(20);
         surnameText = new JTextField(20);
@@ -80,12 +130,34 @@ public class StartFrame extends JFrame {
         nameText.setText("Name");
         surnameText.setText("Surname");
 
+        Box container = Box.createVerticalBox();
+
         container.add(Box.createRigidArea(new Dimension(100, 60)));
         container.add(nameText);
         container.add(Box.createRigidArea(new Dimension(100, 20)));
         container.add(surnameText);
+        container.add(Box.createRigidArea(new Dimension(100, 65)));
+        container.add(textInfo);
 
+        panels.get(1).add(labelLogo);
         panels.get(0).add(container);
+    }
+
+    private void loadInfoData() {
+        try {
+            FileReader fr = new FileReader("src/Resources/Text/start_info.txt");
+            BufferedReader reader = new BufferedReader(fr);
+
+            String line;
+            while ((line = reader.readLine()) != null)
+            {
+                    textInfo.append(line + "\n");
+            }
+        }
+        catch (IOException ioe) {
+            System.err.println(ioe);
+            System.exit(1);
+        }
     }
 
 

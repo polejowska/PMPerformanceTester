@@ -8,7 +8,6 @@ public class Main {
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> new StartFrame().setVisible(true));
-        
     }
 
     public static void setVisibleFirstTest() {
