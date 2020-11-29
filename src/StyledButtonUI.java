@@ -6,6 +6,7 @@ import java.awt.*;
 class StyledButtonUI extends BasicButtonUI {
 
     private static int design;
+    private static int button;
 
     @Override
     public void installUI (JComponent c) {
@@ -14,7 +15,7 @@ class StyledButtonUI extends BasicButtonUI {
         if(design == 0) {
             button.setBorder(new EmptyBorder(25, 120, 25, 120));
         }
-        else if (design == 1){
+        else if (design == 1 || design == 2){
             button.setBorder(new EmptyBorder(15, 25, 15, 25));
         }
         button.setOpaque(false);
@@ -32,7 +33,11 @@ class StyledButtonUI extends BasicButtonUI {
         Dimension size = c.getSize();
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.setColor(c.getBackground().darker());
+        if (button == 2) {
+            g.setColor(Color.RED);
+        } else {
+            g.setColor(c.getBackground().darker());
+        }
         g.fillRoundRect(0, yOffset, size.width, size.height - yOffset, 20, 10);
         g.setColor(new Color(242, 242, 242));
         g.fillRoundRect(0, yOffset, size.width, size.height + yOffset - 10, 20, 10);
@@ -42,4 +47,7 @@ class StyledButtonUI extends BasicButtonUI {
         StyledButtonUI.design = design;
     }
 
+    public static void setButton(int button) {
+        StyledButtonUI.button = button;
+    }
 }

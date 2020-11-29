@@ -4,11 +4,13 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class AppFirstTestFrame extends JFrame {
+public class AppFirstTestFrame extends JFrame{
 
     private final ArrayList<JPanel> panels = new ArrayList<>();
     private JLabel counterLabel;
@@ -21,7 +23,7 @@ public class AppFirstTestFrame extends JFrame {
     public AppFirstTestFrame() {
         super.setTitle("Psychomotor Performance Tester | First test");
         initUI();
-        runTimer();
+        //runTimer();
     }
 
     private void initUI() {
@@ -34,13 +36,13 @@ public class AppFirstTestFrame extends JFrame {
         createInformationHeader();
         addButtons(panels);
     }
-
+/*
     private void runTimer() {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 if(counterFlag){
-                    Main.setPoints(0);
+                    //
                 }
                 else {
                     //
@@ -48,12 +50,12 @@ public class AppFirstTestFrame extends JFrame {
             }
         }, 1000, 1000);
     }
-
+*/
     private void createPanels() {
         LayoutManager flowLayout = new FlowLayout();
         Border borderLine = BorderFactory.createLineBorder(Color.lightGray);
 
-        JPanel panel1 = new JPanel();
+        FirstTestPanel panel1 = new FirstTestPanel();
         JPanel panel2 = new JPanel();
         JPanel panel3 = new JPanel();
 
@@ -88,32 +90,37 @@ public class AppFirstTestFrame extends JFrame {
     }
 
     public void addButtons(ArrayList<JPanel> panels) {
-        StyledButtonUI.setDesign(1);
+        StyledButtonUI.setDesign(2);
         JButton nextButton = new JButton(" NEXT ");
+        JButton gameButton = new JButton("    ");
         JButton returnButton = new JButton("RETURN");
         nextButton.setUI(new StyledButtonUI());
+        gameButton.setUI(new StyledButtonUI());
         returnButton.setUI(new StyledButtonUI());
 
-        nextButton.addActionListener(new ActionListener() {
+        nextButton.addActionListener(e -> {
+            JOptionPane.showMessageDialog(AppFirstTestFrame.this, "Now, you will be examined.");
+            counterFlag = true;
+
+            addClock();
+        });
+
+        gameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(AppFirstTestFrame.this, "Now, you will be examined.");
-                counterFlag = true;
 
-                addClock();
             }
         });
 
-        returnButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                AppInformationFrame appInformationFrame = new AppInformationFrame("First");
-                appInformationFrame.setVisible(true);
-                AppFirstTestFrame.this.dispose();
-            }
+        returnButton.addActionListener(e -> {
+            AppInformationFrame appInformationFrame = new AppInformationFrame("First");
+            appInformationFrame.setVisible(true);
+            AppFirstTestFrame.this.dispose();
         });
 
         panels.get(2).add(returnButton);
+        panels.get(2).add(Box.createHorizontalStrut(200));
+        panels.get(2).add(gameButton);
         panels.get(2).add(Box.createHorizontalStrut(200));
         panels.get(2).add(nextButton);
     }
