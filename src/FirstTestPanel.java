@@ -12,7 +12,8 @@ public class FirstTestPanel extends JPanel implements ActionListener {
     final int PANEL_WIDTH = 800;
     final int PANEL_HEIGHT = 480;
 
-    private String [] imgPaths = {"circle_blue.png", "circle_green.png", "circle_orange.png", "circle_red.png" };
+    private String [] imgPaths = {"Resources/Images/circle_blue.png", "Resources/Images/circle_green.png", "Resources/Images/circle.png"
+            "Resources/Images/circle_orange.png", "Resources/Images/circle_red.png", "Resources/Images/circle_transparent.png" };
     private BufferedImage circle;
 
     Timer timer;
@@ -27,7 +28,7 @@ public class FirstTestPanel extends JPanel implements ActionListener {
         this.setBackground(Color.BLACK);
 
         try {
-            URL url = getClass().getResource(imgPaths[2]);
+            URL url = getClass().getResource(imgPaths[0]);
             File file = new File(url.getPath());
             circle = ImageIO.read(file);
         } catch (IOException ex) {
