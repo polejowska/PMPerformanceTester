@@ -1,7 +1,16 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -14,14 +23,36 @@ public class AppSecondTestFrame extends JFrame {
     AppInformationFrame appThirdInformationFrame = new AppInformationFrame("Third");
 
     private JLabel headerLabel;
+    private BufferedImage imageDigit;
+
+    private String [] digits = {"Resources/Images/2.gif", "Resources/Images/5.gif", "Resources/Images/6.gif",  "Resources/Images/7.gif"};
+    JTextField textDigits;
 
     java.util.Timer timer = new Timer();
     private float counter;
 
+    private int x, y;
+
     public AppSecondTestFrame() {
         super.setTitle("Psychomotor Performance Tester | Second test");
         initUI();
+        try {
+            URL url = getClass().getResource("Resources/Images/2.gif");
+            File file = new File(url.getPath());
+            imageDigit = ImageIO.read(file);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 
+    public void paint(Graphics g) {
+        super.paint(g);
+
+        x = (panels.get(0).getWidth() - imageDigit.getWidth(null)) / 2;
+        y = ((panels.get(0).getHeight() - imageDigit.getHeight(null)) / 2) + 150;
+
+        Graphics2D g2D = (Graphics2D) g;
+        g2D.drawImage(imageDigit, x, y, null);
     }
 
     private void initUI() {
@@ -33,7 +64,33 @@ public class AppSecondTestFrame extends JFrame {
         createPanels();
         createInformationHeader();
         addButtons(panels);
+
+        textDigits = new JTextField("Enter the digit here");
+        textDigits.setBounds(x-20,y+250, 300,50);
+        textDigits.setFont(new Font("Calibri", Font.PLAIN, 30));
+        textDigits.setHorizontalAlignment(JTextField.CENTER);
+        panels.get(0).add(textDigits);
+
+        textDigits.addFocusListener(new FocusListener() {
+                @Override
+                public void focusGained(FocusEvent e) {
+                    if (textDigits.getText().length() >= 1) {
+                        textDigits.setForeground(Color.BLACK);
+                        textDigits.setText("");
+                    }
+                }
+
+                @Override
+                public void focusLost(FocusEvent e) {
+                    if (textDigits.getText().isEmpty()) {
+                        textDigits.setForeground(Color.GRAY);
+                        textDigits.setText("Enter the digit here");
+                    }
+                }
+            });
     }
+
+
 
     private void createPanels() {
         LayoutManager flowLayout = new FlowLayout();
@@ -74,10 +131,10 @@ public class AppSecondTestFrame extends JFrame {
     public void addButtons(ArrayList<JPanel> panels) {
         StyledButtonUI.setDesign(2);
         JButton nextButton = new JButton(" NEXT ");
-        JButton gameButton = new JButton("    ");
+        JButton okButton = new JButton(" OK ");
         JButton returnButton = new JButton("RETURN");
         nextButton.setUI(new StyledButtonUI());
-        gameButton.setUI(new StyledButtonUI());
+        okButton.setUI(new StyledButtonUI());
         returnButton.setUI(new StyledButtonUI());
 
         nextButton.addActionListener(e -> {
@@ -92,8 +149,10 @@ public class AppSecondTestFrame extends JFrame {
             }
         });
 
-        gameButton.addActionListener(e -> {
-
+        okButton.addActionListener(e -> {
+            if(("Resources/Images/"+textDigits.getText()+".gif").equals(digits[0])) {
+                JOptionPane.showMessageDialog(AppSecondTestFrame.this, "Correct!");
+            }
         });
 
         returnButton.addActionListener(e -> {
@@ -104,7 +163,7 @@ public class AppSecondTestFrame extends JFrame {
 
         panels.get(2).add(returnButton);
         panels.get(2).add(Box.createHorizontalStrut(200));
-        panels.get(2).add(gameButton);
+        panels.get(2).add(okButton);
         panels.get(2).add(Box.createHorizontalStrut(200));
         panels.get(2).add(nextButton);
     }
