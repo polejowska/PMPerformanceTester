@@ -79,22 +79,18 @@ public class AppStartFrame extends JFrame {
     }
 
     private void startButtonClick() {
-        startButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if ((nameText.getText().length() <= 2 || nameText.getText().equals("Name"))
-                        && (surnameText.getText().length() <= 2 || surnameText.getText().equals("Surname"))) {
-                    JOptionPane.showMessageDialog(AppStartFrame.this,
-                            "Please, enter valid credentials to start the tests. " + nameText.getText()
-                                    + " " + surnameText.getText() + " is invalid. ");
-                } else {
-                    Main.setName(nameText.getText());
-                    Main.setSurname(surnameText.getText());
-                    appInformationFrame = new AppInformationFrame("First");
-                    appInformationFrame.setVisible(true);
-                    AppStartFrame.this.dispose();
-                }
-
+        startButton.addActionListener(e -> {
+            if ((nameText.getText().length() <= 2 || nameText.getText().equals("Name"))
+                    && (surnameText.getText().length() <= 2 || surnameText.getText().equals("Surname"))) {
+                JOptionPane.showMessageDialog(AppStartFrame.this,
+                        "Please, enter valid credentials to start the tests. " + nameText.getText()
+                                + " " + surnameText.getText() + " is invalid. ");
+            } else {
+                Main.setName(nameText.getText());
+                Main.setSurname(surnameText.getText());
+                appInformationFrame = new AppInformationFrame("First");
+                appInformationFrame.setVisible(true);
+                AppStartFrame.this.dispose();
             }
         });
     }
@@ -156,7 +152,6 @@ public class AppStartFrame extends JFrame {
             System.exit(1);
         }
     }
-
 
     private void createButtons() {
         StyledButtonUI.setDesign(0);

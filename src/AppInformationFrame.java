@@ -13,12 +13,13 @@ public class AppInformationFrame extends JFrame{
 
     private final ArrayList<JPanel> panels = new ArrayList<>();
     private AppFirstTestFrame appFirstTestFrame;
+    private AppSecondTestFrame appSecondTestFrame;
     private final JTextArea jTextArea = new JTextArea();
     private final String number;
 
     AppInformationFrame(String number) {
         this.number = number;
-        super.setTitle("Psychomotor Performance Tester | Information about first test");
+        super.setTitle("Psychomotor Performance Tester | Information about " + number + " test");
 
         initUI();
     }
@@ -101,22 +102,21 @@ public class AppInformationFrame extends JFrame{
         nextButton.setUI(new StyledButtonUI());
         returnButton.setUI(new StyledButtonUI());
 
-        nextButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(AppInformationFrame.this, "Now, you will start the training phase.");
+        nextButton.addActionListener(e -> {
+            JOptionPane.showMessageDialog(AppInformationFrame.this, "Now, you will start the training phase.");
+            if(AppFirstTestFrame.getTrainingPhase()) {
                 appFirstTestFrame = new AppFirstTestFrame();
                 appFirstTestFrame.setVisible(true);
-                AppInformationFrame.this.dispose();
+            } else if (AppSecondTestFrame.getTrainingPhase()) {
+                appSecondTestFrame = new AppSecondTestFrame();
+                appSecondTestFrame.setVisible(true);
             }
+            AppInformationFrame.this.dispose();
         });
 
-        returnButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-               AppInformationFrame.this.dispose();
-               Main.setVisibileStartFrame();
-            }
+        returnButton.addActionListener(e -> {
+           AppInformationFrame.this.dispose();
+           Main.setVisibileStartFrame();
         });
 
         panels.get(2).add(returnButton);

@@ -2,34 +2,26 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class AppFirstTestFrame extends JFrame{
+public class AppSecondTestFrame extends JFrame {
 
     private final ArrayList<JPanel> panels = new ArrayList<>();
-
-    AppInformationFrame appSecondInformationFrame;
-
-    private JLabel counterLabel;
-    private JLabel headerLabel;
-    private Boolean counterFlag = false;
-    private float counter;
     private static Boolean trainingPhase = true;
 
-    Timer timer = new Timer();
+    AppInformationFrame appThirdInformationFrame = new AppInformationFrame("Third");
 
-    public AppFirstTestFrame() {
-        super.setTitle("Psychomotor Performance Tester | First test");
+    private JLabel headerLabel;
+
+    java.util.Timer timer = new Timer();
+    private float counter;
+
+    public AppSecondTestFrame() {
+        super.setTitle("Psychomotor Performance Tester | Second test");
         initUI();
 
-        trainingPhase = true;
-        //runTimer();
     }
 
     private void initUI() {
@@ -42,26 +34,12 @@ public class AppFirstTestFrame extends JFrame{
         createInformationHeader();
         addButtons(panels);
     }
-/*
-    private void runTimer() {
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                if(counterFlag){
-                    //
-                }
-                else {
-                    //
-                }
-            }
-        }, 1000, 1000);
-    }
-*/
+
     private void createPanels() {
         LayoutManager flowLayout = new FlowLayout();
         Border borderLine = BorderFactory.createLineBorder(Color.lightGray);
 
-        FirstTestPanel panel1 = new FirstTestPanel();
+        JPanel panel1 = new JPanel();
         JPanel panel2 = new JPanel();
         JPanel panel3 = new JPanel();
 
@@ -80,15 +58,13 @@ public class AppFirstTestFrame extends JFrame{
             panel.setLayout(flowLayout);
         }
 
-        panel1.setBackground(Color.BLACK);
-
         this.add(panel1, BorderLayout.CENTER);
         this.add(panel2, BorderLayout.NORTH);
         this.add(panel3, BorderLayout.SOUTH);
     }
 
     public void createInformationHeader() {
-        headerLabel = new JLabel("First test - training phase", JLabel.LEFT);
+        headerLabel = new JLabel("Second test - training phase", JLabel.LEFT);
         headerLabel.setFont(new Font("Calibri", Font.BOLD, 30));
         headerLabel.setBorder(new EmptyBorder(40,0,0,0));
 
@@ -106,15 +82,13 @@ public class AppFirstTestFrame extends JFrame{
 
         nextButton.addActionListener(e -> {
             if(trainingPhase) {
-                JOptionPane.showMessageDialog(AppFirstTestFrame.this, "Now, you will be examined.");
-                counterFlag = true;
+                JOptionPane.showMessageDialog(AppSecondTestFrame.this, "Now, you will be examined.");
                 trainingPhase = false;
                 addClock();
             }
             else {
-                appSecondInformationFrame = new AppInformationFrame("Second");
-                appSecondInformationFrame.setVisible(true);
-                AppFirstTestFrame.this.dispose();
+                appThirdInformationFrame.setVisible(true);
+                AppSecondTestFrame.this.dispose();
             }
         });
 
@@ -125,7 +99,7 @@ public class AppFirstTestFrame extends JFrame{
         returnButton.addActionListener(e -> {
             AppInformationFrame appInformationFrame = new AppInformationFrame("First");
             appInformationFrame.setVisible(true);
-            AppFirstTestFrame.this.dispose();
+            AppSecondTestFrame.this.dispose();
         });
 
         panels.get(2).add(returnButton);
@@ -146,13 +120,12 @@ public class AppFirstTestFrame extends JFrame{
         }, 1000, 1000);
     }
 
-    public static void setTrainingPhase(Boolean trainingPhase) {
-        AppFirstTestFrame.trainingPhase = trainingPhase;
+    public void setTrainingPhase(Boolean trainingPhase) {
+        AppSecondTestFrame.trainingPhase = trainingPhase;
     }
 
     public static Boolean getTrainingPhase() {
         return trainingPhase;
     }
-
 
 }
