@@ -130,7 +130,6 @@ public class AppFirstTestFrame extends JFrame{
 
         panels.get(2).add(returnButton);
         panels.get(2).add(Box.createHorizontalStrut(200));
-        panels.get(2).add(gameButton);
         panels.get(2).add(Box.createHorizontalStrut(200));
         panels.get(2).add(nextButton);
     }

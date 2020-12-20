@@ -161,6 +161,7 @@ public class AppSecondTestFrame extends JFrame {
                 addClock();
                 // Display digits from the beginning
                 addDigit(0);
+                textDigits.setText("Enter the digit here");
                 repaint();
             }
             else {
@@ -177,6 +178,7 @@ public class AppSecondTestFrame extends JFrame {
                     // Check if there are more digits to be displayed, if yes continue to the next digit
                     if(numberTrain < digits.length - 1) {
                         addDigit(++numberTrain);
+                        //textDigits.setText("                 ");
                     }
                 } else {
                     JOptionPane.showMessageDialog(AppSecondTestFrame.this, "Unfortunalety, the number entered is not the same as " +
@@ -192,6 +194,7 @@ public class AppSecondTestFrame extends JFrame {
                     if(numberTest < digits.length - 1) {
                         Main.setPoints(+5);
                         addDigit(++numberTest);
+                        //textDigits.setText("                 ");
                     }
 
                 } else {
