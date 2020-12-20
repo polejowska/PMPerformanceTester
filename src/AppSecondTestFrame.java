@@ -178,10 +178,10 @@ public class AppSecondTestFrame extends JFrame {
                     // Check if there are more digits to be displayed, if yes continue to the next digit
                     if(numberTrain < digits.length - 1) {
                         addDigit(++numberTrain);
-                        //textDigits.setText("                 ");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(AppSecondTestFrame.this, "Unfortunalety, the number entered is not the same as " +
+                    JOptionPane.showMessageDialog(AppSecondTestFrame.this,
+                            "Unfortunalety, the number entered is not the same as " +
                             "in the image. Try again.", "Incorrect!", JOptionPane.WARNING_MESSAGE);
                 }
 
@@ -190,21 +190,18 @@ public class AppSecondTestFrame extends JFrame {
                 repaint();
                 if (("Resources/Images/" + textDigits.getText() + ".gif").equals(digits[numberTest])) {
                     JOptionPane.showMessageDialog(AppSecondTestFrame.this, "Correct!");
-
                     if(numberTest < digits.length - 1) {
                         Main.setPoints(+5);
                         addDigit(++numberTest);
-                        //textDigits.setText("                 ");
                     }
 
                 } else {
-                    JOptionPane.showMessageDialog(AppSecondTestFrame.this, "Unfortunalety, the number entered is not the same as " +
+                    JOptionPane.showMessageDialog(AppSecondTestFrame.this,
+                            "Unfortunalety, the number entered is not the same as " +
                             "in the image. Try again.", "Incorrect!", JOptionPane.WARNING_MESSAGE);
-
                     Main.setPoints(-5);
                 }
             }
-
 
         });
 

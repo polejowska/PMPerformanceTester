@@ -72,14 +72,17 @@ public class FirstTestPanel extends JPanel implements ActionListener {
                 super.mouseClicked(e);
                 Point clicked = e.getPoint();
                 Rectangle bounds = new Rectangle(x, y, circle.getWidth(), circle.getHeight());
+
                 if (bounds.contains(clicked)) {
                     // If in training phase, show prompts
                      if(AppFirstTestFrame.getTrainingPhase()) {
                          if(imgPath != null && imgPath.equals(imgPaths[4])) {
-                            JOptionPane.showMessageDialog(FirstTestPanel.this,"Correct! You have to click the circle" +
+                            JOptionPane.showMessageDialog(FirstTestPanel.this,"" +
+                                    "Correct! You have to click the circle" +
                                     " when red circle appears. ");
                         } else {
-                             JOptionPane.showMessageDialog(FirstTestPanel.this, "Incorrect! You have to click the circle if and only if" +
+                             JOptionPane.showMessageDialog(FirstTestPanel.this,
+                                     "Incorrect! You have to click the circle if and only if" +
                                      " it is red. Try again. ", "Incorrect!", JOptionPane.WARNING_MESSAGE);
                          }
                     } // If not in training phase, update points

@@ -14,6 +14,7 @@ public class AppInformationFrame extends JFrame{
     private final ArrayList<JPanel> panels = new ArrayList<>();
     private AppFirstTestFrame appFirstTestFrame;
     private AppSecondTestFrame appSecondTestFrame;
+    private AppThirdTestFrame appThirdTestFrame;
     private final JTextArea jTextArea = new JTextArea();
     private final String number;
 
@@ -110,7 +111,9 @@ public class AppInformationFrame extends JFrame{
             } else if (AppSecondTestFrame.getTrainingPhase()) {
                 appSecondTestFrame = new AppSecondTestFrame();
                 appSecondTestFrame.setVisible(true);
-                appSecondTestFrame.memory = 1;
+            } else if (AppThirdTestFrame.getTrainingPhase()) {
+                appThirdTestFrame = new AppThirdTestFrame();
+                appThirdTestFrame.setVisible(true);
             }
             AppInformationFrame.this.dispose();
         });
