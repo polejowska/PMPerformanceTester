@@ -25,8 +25,10 @@ public class AppSecondTestFrame extends JFrame {
     private JLabel headerLabel;
     private BufferedImage imageDigit;
 
-    private String [] digits = {"Resources/Images/2.gif", "Resources/Images/5.gif", "Resources/Images/6.gif",  "Resources/Images/7.gif"};
+    private final String [] digits = {"Resources/Images/2.gif", "Resources/Images/5.gif", "Resources/Images/6.gif",  "Resources/Images/7.gif"};
     JTextField textDigits;
+    int numberTrain, numberTest;
+    int memory = -1;
 
     java.util.Timer timer = new Timer();
     private float counter;
@@ -36,13 +38,29 @@ public class AppSecondTestFrame extends JFrame {
     public AppSecondTestFrame() {
         super.setTitle("Psychomotor Performance Tester | Second test");
         initUI();
+        addDigit(0);
+    }
+
+    public void addDigit(int num) {
         try {
-            URL url = getClass().getResource("Resources/Images/2.gif");
-            File file = new File(url.getPath());
-            imageDigit = ImageIO.read(file);
+            if(AppSecondTestFrame.getTrainingPhase()) {
+                numberTrain = num;
+                URL url = getClass().getResource(digits[numberTrain]);
+                File file = new File(url.getPath());
+                imageDigit = ImageIO.read(file);
+            }
+            else {
+                repaint();
+                numberTest = num;
+                URL url = getClass().getResource(digits[numberTest]);
+                File file = new File(url.getPath());
+                imageDigit = ImageIO.read(file);
+            }
+
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        repaint();
     }
 
     public void paint(Graphics g) {
@@ -89,7 +107,6 @@ public class AppSecondTestFrame extends JFrame {
                 }
             });
     }
-
 
 
     private void createPanels() {
@@ -142,6 +159,9 @@ public class AppSecondTestFrame extends JFrame {
                 JOptionPane.showMessageDialog(AppSecondTestFrame.this, "Now, you will be examined.");
                 trainingPhase = false;
                 addClock();
+                // Display digits from the beginning
+                addDigit(0);
+                repaint();
             }
             else {
                 appThirdInformationFrame.setVisible(true);
@@ -150,10 +170,41 @@ public class AppSecondTestFrame extends JFrame {
         });
 
         okButton.addActionListener(e -> {
-            if(("Resources/Images/"+textDigits.getText()+".gif").equals(digits[0])) {
-                JOptionPane.showMessageDialog(AppSecondTestFrame.this, "Correct!");
+
+            if(AppSecondTestFrame.getTrainingPhase()) {
+                if (("Resources/Images/" + textDigits.getText() + ".gif").equals(digits[numberTrain])) {
+                    JOptionPane.showMessageDialog(AppSecondTestFrame.this, "Correct!");
+                    // Check if there are more digits to be displayed, if yes continue to the next digit
+                    if(numberTrain < digits.length - 1) {
+                        addDigit(++numberTrain);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(AppSecondTestFrame.this, "Unfortunalety, the number entered is not the same as " +
+                            "in the image. Try again.", "Incorrect!", JOptionPane.WARNING_MESSAGE);
+                }
+
             }
+            else {
+                repaint();
+                if (("Resources/Images/" + textDigits.getText() + ".gif").equals(digits[numberTest])) {
+                    JOptionPane.showMessageDialog(AppSecondTestFrame.this, "Correct!");
+
+                    if(numberTest < digits.length - 1) {
+                        Main.setPoints(+5);
+                        addDigit(++numberTest);
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(AppSecondTestFrame.this, "Unfortunalety, the number entered is not the same as " +
+                            "in the image. Try again.", "Incorrect!", JOptionPane.WARNING_MESSAGE);
+
+                    Main.setPoints(-5);
+                }
+            }
+
+
         });
+
 
         returnButton.addActionListener(e -> {
             AppInformationFrame appInformationFrame = new AppInformationFrame("First");

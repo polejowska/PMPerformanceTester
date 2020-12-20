@@ -25,8 +25,8 @@ public class FirstTestPanel extends JPanel implements ActionListener {
     private Timer timer;
     private String saveTimeState;
 
-    private int xSpeed = 1;
-    private int ySpeed = 1;
+    private int xSpeed = 2;
+    private int ySpeed = 2;
     private int x = 0;
     private int y = 100;
 
@@ -60,10 +60,12 @@ public class FirstTestPanel extends JPanel implements ActionListener {
             }
         }
 
+        // Timer for balls color change
         java.util.Timer timer1 = new java.util.Timer();
         TimerTask task = new MyTimerTask();
-        timer1.scheduleAtFixedRate(task, 2000, 2000);
+        timer1.scheduleAtFixedRate(task, 100, 700);
 
+        // Check if clicked correctly
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -71,6 +73,7 @@ public class FirstTestPanel extends JPanel implements ActionListener {
                 Point clicked = e.getPoint();
                 Rectangle bounds = new Rectangle(x, y, circle.getWidth(), circle.getHeight());
                 if (bounds.contains(clicked)) {
+                    // If in training phase, show prompts
                      if(AppFirstTestFrame.getTrainingPhase()) {
                          if(imgPath != null && imgPath.equals(imgPaths[4])) {
                             JOptionPane.showMessageDialog(FirstTestPanel.this,"Correct! You have to click the circle" +
@@ -79,7 +82,8 @@ public class FirstTestPanel extends JPanel implements ActionListener {
                              JOptionPane.showMessageDialog(FirstTestPanel.this, "Incorrect! You have to click the circle if and only if" +
                                      " it is red. Try again. ", "Incorrect!", JOptionPane.WARNING_MESSAGE);
                          }
-                    } else {
+                    } // If not in training phase, update points
+                     else {
                          if(imgPath != null && imgPath.equals(imgPaths[4])) {
                              Main.setPoints(10);
                          }
@@ -87,9 +91,15 @@ public class FirstTestPanel extends JPanel implements ActionListener {
                              Main.setPoints(-10);
                          }
                      }
-                }
-                else if (!bounds.contains(clicked) && !AppFirstTestFrame.getTrainingPhase()){
-                    Main.setPoints(-10);
+                } // Check if clicked the field outside the ball
+                else if (!bounds.contains(clicked)){
+                    if(AppFirstTestFrame.getTrainingPhase()) {
+                        JOptionPane.showMessageDialog(FirstTestPanel.this, "You have to click on the moving ball!",
+                                "Incorrect!", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        Main.setPoints(-10);
+                    }
+
                 }
             }
         });
@@ -102,10 +112,9 @@ public class FirstTestPanel extends JPanel implements ActionListener {
         g2D.drawImage(circle, x, y, null);
     }
 
+    // Change the ball position
     @Override
     public void actionPerformed(ActionEvent e) {
-
-
         if(x >= PANEL_WIDTH - circle.getWidth(null) || x < 0) {
             xSpeed = xSpeed * -1;
         }

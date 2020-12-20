@@ -110,6 +110,7 @@ public class AppInformationFrame extends JFrame{
             } else if (AppSecondTestFrame.getTrainingPhase()) {
                 appSecondTestFrame = new AppSecondTestFrame();
                 appSecondTestFrame.setVisible(true);
+                appSecondTestFrame.memory = 1;
             }
             AppInformationFrame.this.dispose();
         });
