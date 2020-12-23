@@ -1,3 +1,10 @@
 Information about the third test.
 
 Please, put on headphones in order to get correct results.
+
+The sound is played when the third test starts.
+The volume level can be adjusted according to the scale display.
+If you do not hear the sound, increase the level.
+If you hear the sound, please click the "HEAR" button.
+
+Click next if you are ready to start the last test.

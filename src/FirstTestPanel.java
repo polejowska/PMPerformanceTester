@@ -15,14 +15,16 @@ public class FirstTestPanel extends JPanel implements ActionListener {
     private final int PANEL_WIDTH = 800;
     private final int PANEL_HEIGHT = 480;
 
-    private final String [] imgPaths = {"Resources/Images/circle_blue.png", "Resources/Images/circle_green.png", "Resources/Images/circle.png",
-            "Resources/Images/circle_orange.png", "Resources/Images/circle_red.png", "Resources/Images/circle_transparent.png" };
+    private final String [] imgPaths = {
+            "Resources/Images/circle_blue.png", "Resources/Images/circle_green.png", "Resources/Images/circle.png",
+            "Resources/Images/circle_orange.png", "Resources/Images/circle_red.png", "Resources/Images/circle_transparent.png"
+    };
+
     private String imgPath;
     private BufferedImage circle;
 
-    private Random rand = new Random();
+    private final Random rand = new Random();
 
-    private Timer timer;
     private String saveTimeState;
 
     private int xSpeed = 2;
@@ -42,7 +44,7 @@ public class FirstTestPanel extends JPanel implements ActionListener {
             ex.printStackTrace();
         }
 
-        timer = new Timer(100, this);
+        Timer timer = new Timer(100, this);
         timer.start();
 
         class MyTimerTask extends TimerTask

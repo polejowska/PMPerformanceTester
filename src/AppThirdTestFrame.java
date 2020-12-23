@@ -1,29 +1,15 @@
-import javax.imageio.ImageIO;
-import javax.print.attribute.standard.Media;
 import javax.sound.sampled.*;
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 import java.util.*;
-import java.io.File;
 import java.util.Timer;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.swing.plaf.basic.BasicArrowButton;
-import java.awt.*;
 import java.util.stream.Stream;
-import javax.swing.*;
-import javax.swing.plaf.basic.BasicSpinnerUI;
+
 
 public class AppThirdTestFrame extends JFrame {
 
@@ -47,26 +33,6 @@ public class AppThirdTestFrame extends JFrame {
         super.setTitle("Psychomotor Performance Tester | Third test");
         initUI();
     }
-
-    public void playSound() {
-        try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("Resources/Sounds/1_0.wav"));
-            clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-
-            gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gainControl.setValue(-10.0f); // Reduce volume by 10 decibels.
-
-            clip.start();
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
-
-            // If you want the sound to loop infinitely, then put: clip.loop(Clip.LOOP_CONTINUOUSLY);
-            // If you want to stop the sound, then use clip.stop();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
 
     private void initUI() {
         this.getContentPane().setBackground(Color.WHITE);
@@ -97,13 +63,6 @@ public class AppThirdTestFrame extends JFrame {
 
         panels.get(0).add(spinnerSound);
     }
-
-    private static Stream<Component> stream(Container parent) {
-        return Stream.of(parent.getComponents())
-                .filter(Container.class::isInstance).map(c -> stream(Container.class.cast(c)))
-                .reduce(Stream.of(parent), Stream::concat);
-    }
-
 
     private void createPanels() {
         LayoutManager flowLayout = new FlowLayout();
@@ -144,7 +103,7 @@ public class AppThirdTestFrame extends JFrame {
     public void addButtons(ArrayList<JPanel> panels) {
         StyledButtonUI.setDesign(2);
         JButton nextButton = new JButton(" NEXT ");
-        JButton okButton = new JButton(" OK ");
+        JButton okButton = new JButton(" HEAR ");
         JButton returnButton = new JButton("RETURN");
         nextButton.setUI(new StyledButtonUI());
         okButton.setUI(new StyledButtonUI());
@@ -194,13 +153,39 @@ public class AppThirdTestFrame extends JFrame {
         }, 1000, 1000);
     }
 
-
     public void setTrainingPhase(Boolean trainingPhase) {
         AppThirdTestFrame.trainingPhase = trainingPhase;
     }
 
     public static Boolean getTrainingPhase() {
         return trainingPhase;
+    }
+
+    /* Manage sound */
+
+    public void playSound() {
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("Resources/Sounds/1_0.wav"));
+            clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+
+            gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(-10.0f); // Reduce volume by 10 decibels.
+
+            clip.start();
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+
+            // If you want the sound to loop infinitely, then put: clip.loop(Clip.LOOP_CONTINUOUSLY);
+            // If you want to stop the sound, then use clip.stop();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private static Stream<Component> stream(Container parent) {
+        return Stream.of(parent.getComponents())
+                .filter(Container.class::isInstance).map(c -> stream(Container.class.cast(c)))
+                .reduce(Stream.of(parent), Stream::concat);
     }
 
 }
