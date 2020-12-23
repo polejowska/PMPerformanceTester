@@ -13,11 +13,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import java.io.File;
+import java.util.Timer;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -31,7 +29,8 @@ public class AppThirdTestFrame extends JFrame {
 
     private JLabel headerLabel;
 
-    private final String [] sounds = {"Resources/Images/2.gif", "Resources/Images/5.gif", "Resources/Images/6.gif",  "Resources/Images/7.gif"};
+    Clip clip;
+    FloatControl gainControl;
 
 
     java.util.Timer timer = new Timer();
@@ -48,8 +47,12 @@ public class AppThirdTestFrame extends JFrame {
     public void playSound() {
         try {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("Resources/Sounds/1_0.wav"));
-            Clip clip = AudioSystem.getClip();
+            clip = AudioSystem.getClip();
             clip.open(audioInputStream);
+
+            gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(-10.0f); // Reduce volume by 10 decibels.
+
             clip.start();
             // If you want the sound to loop infinitely, then put: clip.loop(Clip.LOOP_CONTINUOUSLY);
             // If you want to stop the sound, then use clip.stop();
@@ -57,7 +60,6 @@ public class AppThirdTestFrame extends JFrame {
             ex.printStackTrace();
         }
     }
-
 
 
 
