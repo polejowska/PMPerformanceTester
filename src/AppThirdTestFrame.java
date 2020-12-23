@@ -19,6 +19,11 @@ import java.util.Timer;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.swing.plaf.basic.BasicArrowButton;
+import java.awt.*;
+import java.util.stream.Stream;
+import javax.swing.*;
+import javax.swing.plaf.basic.BasicSpinnerUI;
 
 public class AppThirdTestFrame extends JFrame {
 
@@ -41,7 +46,6 @@ public class AppThirdTestFrame extends JFrame {
         playSound();
         super.setTitle("Psychomotor Performance Tester | Third test");
         initUI();
-
     }
 
     public void playSound() {
@@ -54,13 +58,14 @@ public class AppThirdTestFrame extends JFrame {
             gainControl.setValue(-10.0f); // Reduce volume by 10 decibels.
 
             clip.start();
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+
             // If you want the sound to loop infinitely, then put: clip.loop(Clip.LOOP_CONTINUOUSLY);
             // If you want to stop the sound, then use clip.stop();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
-
 
 
     private void initUI() {
@@ -73,7 +78,30 @@ public class AppThirdTestFrame extends JFrame {
         createInformationHeader();
         addButtons(panels);
 
+        /* Spinner */
+        
+        SpinnerModel model = new SpinnerNumberModel(5, 0, 10, 1);
+        JSpinner spinnerSound = new JSpinner(model);
+        spinnerSound.setFont(spinnerSound.getFont().deriveFont(50f));
+        stream(spinnerSound)
+                .filter(JButton.class::isInstance).map(JButton.class::cast)
+                .forEach(b -> {
+                    Dimension d = b.getPreferredSize();
+                    d.width = 50;
+                    b.setPreferredSize(d);
+                });
 
+        ((JSpinner.DefaultEditor) spinnerSound.getEditor()).getTextField().setEditable(false);
+
+        panels.get(0).add(Box.createVerticalStrut(200));
+
+        panels.get(0).add(spinnerSound);
+    }
+
+    private static Stream<Component> stream(Container parent) {
+        return Stream.of(parent.getComponents())
+                .filter(Container.class::isInstance).map(c -> stream(Container.class.cast(c)))
+                .reduce(Stream.of(parent), Stream::concat);
     }
 
 
@@ -106,7 +134,7 @@ public class AppThirdTestFrame extends JFrame {
     }
 
     public void createInformationHeader() {
-        headerLabel = new JLabel("Second test - training phase", JLabel.LEFT);
+        headerLabel = new JLabel("Third test - training phase", JLabel.LEFT);
         headerLabel.setFont(new Font("Calibri", Font.BOLD, 30));
         headerLabel.setBorder(new EmptyBorder(40,0,0,0));
 
@@ -121,6 +149,7 @@ public class AppThirdTestFrame extends JFrame {
         nextButton.setUI(new StyledButtonUI());
         okButton.setUI(new StyledButtonUI());
         returnButton.setUI(new StyledButtonUI());
+
 
         nextButton.addActionListener(e -> {
             if(trainingPhase) {
@@ -138,10 +167,7 @@ public class AppThirdTestFrame extends JFrame {
         okButton.addActionListener(e -> {
 
 
-
-
         });
-
 
         returnButton.addActionListener(e -> {
             AppInformationFrame appInformationFrame = new AppInformationFrame("First");
@@ -154,6 +180,7 @@ public class AppThirdTestFrame extends JFrame {
         panels.get(2).add(okButton);
         panels.get(2).add(Box.createHorizontalStrut(200));
         panels.get(2).add(nextButton);
+
     }
 
     private void addClock() {
@@ -166,6 +193,7 @@ public class AppThirdTestFrame extends JFrame {
             }
         }, 1000, 1000);
     }
+
 
     public void setTrainingPhase(Boolean trainingPhase) {
         AppThirdTestFrame.trainingPhase = trainingPhase;

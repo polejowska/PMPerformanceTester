@@ -89,8 +89,7 @@ public class AppInformationFrame extends JFrame{
             }
         }
         catch (IOException ioe) {
-            System.err.println(ioe);
-            System.exit(1);
+            ioe.printStackTrace();
         }
 
         panels.get(0).add(jTextArea);
@@ -105,6 +104,7 @@ public class AppInformationFrame extends JFrame{
 
         nextButton.addActionListener(e -> {
             JOptionPane.showMessageDialog(AppInformationFrame.this, "Now, you will start the training phase.");
+
             if(AppFirstTestFrame.getTrainingPhase()) {
                 appFirstTestFrame = new AppFirstTestFrame();
                 appFirstTestFrame.setVisible(true);
