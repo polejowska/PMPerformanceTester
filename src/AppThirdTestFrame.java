@@ -1,14 +1,10 @@
-import javax.sound.sampled.*;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.*;
 import java.util.Timer;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import java.util.stream.Stream;
+
 
 
 public class AppThirdTestFrame extends JFrame {
@@ -24,6 +20,7 @@ public class AppThirdTestFrame extends JFrame {
     private ArrayList<AppThirdTestSound> sounds = new ArrayList<>();
 
     float soundVolume;
+    int soundVolClicked;
 
     java.util.Timer timer = new Timer();
     int counter;
@@ -101,7 +98,10 @@ public class AppThirdTestFrame extends JFrame {
 
 
             Integer finalI1 = i;
+
             volumeButtons.get(i).addActionListener(e -> {
+
+                soundVolClicked = finalI1;
 
                 sounds.get(finalI1).play();
 
@@ -113,7 +113,6 @@ public class AppThirdTestFrame extends JFrame {
 
             });
 
-            System.out.println(i.toString());
         }
 
         StyledButtonUI.setDesign(2);
@@ -124,7 +123,6 @@ public class AppThirdTestFrame extends JFrame {
         nextButton.setUI(new StyledButtonUI());
         okButton.setUI(new StyledButtonUI());
         returnButton.setUI(new StyledButtonUI());
-
 
         nextButton.addActionListener(e -> {
             if(trainingPhase) {
@@ -141,6 +139,7 @@ public class AppThirdTestFrame extends JFrame {
 
         okButton.addActionListener(e -> {
 
+            Main.setPoints(11-soundVolClicked);
 
         });
 

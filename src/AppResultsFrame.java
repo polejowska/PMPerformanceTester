@@ -96,7 +96,7 @@ public class AppResultsFrame extends JFrame{
 
     public void addButtons(ArrayList<JPanel> panels) {
         StyledButtonUI.setDesign(1);
-        JButton nextButton = new JButton(" NEXT ");
+        JButton nextButton = new JButton(" EXIT ");
         JButton returnButton = new JButton("RETURN");
         nextButton.setUI(new StyledButtonUI());
         returnButton.setUI(new StyledButtonUI());
@@ -104,16 +104,6 @@ public class AppResultsFrame extends JFrame{
         nextButton.addActionListener(e -> {
             JOptionPane.showMessageDialog(AppResultsFrame.this, "Now, you will start the training phase.");
 
-            if(AppFirstTestFrame.getTrainingPhase()) {
-                appFirstTestFrame = new AppFirstTestFrame();
-                appFirstTestFrame.setVisible(true);
-            } else if (AppSecondTestFrame.getTrainingPhase()) {
-                appSecondTestFrame = new AppSecondTestFrame();
-                appSecondTestFrame.setVisible(true);
-            } else if (AppThirdTestFrame.getTrainingPhase()) {
-                appThirdTestFrame = new AppThirdTestFrame();
-                appThirdTestFrame.setVisible(true);
-            }
             AppResultsFrame.this.dispose();
         });
 
