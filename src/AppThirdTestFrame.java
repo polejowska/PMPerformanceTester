@@ -30,7 +30,7 @@ public class AppThirdTestFrame extends JFrame {
     private final ArrayList<JPanel> panels = new ArrayList<>();
     private static Boolean trainingPhase = true;
 
-    AppInformationFrame appThirdInformationFrame = new AppInformationFrame("Third");
+    AppResultsFrame appResultsFrame = new AppResultsFrame();
 
     private JLabel headerLabel;
 
@@ -79,7 +79,7 @@ public class AppThirdTestFrame extends JFrame {
         addButtons(panels);
 
         /* Spinner */
-        
+
         SpinnerModel model = new SpinnerNumberModel(5, 0, 10, 1);
         JSpinner spinnerSound = new JSpinner(model);
         spinnerSound.setFont(spinnerSound.getFont().deriveFont(50f));
@@ -159,7 +159,7 @@ public class AppThirdTestFrame extends JFrame {
                 repaint();
             }
             else {
-                appThirdInformationFrame.setVisible(true);
+                appResultsFrame.setVisible(true);
                 AppThirdTestFrame.this.dispose();
             }
         });

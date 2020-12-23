@@ -1,9 +1,7 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -25,10 +23,14 @@ public class AppSecondTestFrame extends JFrame {
     private JLabel headerLabel;
     private BufferedImage imageDigit;
 
-    private final String [] digits = {"Resources/Images/2.gif", "Resources/Images/5.gif", "Resources/Images/6.gif",  "Resources/Images/7.gif"};
+    private final String [] digits = {
+            "Resources/Images/2.gif", "Resources/Images/5.gif", "Resources/Images/6.gif",  "Resources/Images/7.gif",
+            "Resources/Images/12.gif", "Resources/Images/25.gif", "Resources/Images/45.gif", "Resources/Images/73.gif",
+            "Resources/Images/97.gif"
+    };
+
     JTextField textDigits;
     int numberTrain, numberTest;
-    int memory = -1;
 
     java.util.Timer timer = new Timer();
     private float counter;
@@ -189,22 +191,17 @@ public class AppSecondTestFrame extends JFrame {
             else {
                 repaint();
                 if (("Resources/Images/" + textDigits.getText() + ".gif").equals(digits[numberTest])) {
-                    JOptionPane.showMessageDialog(AppSecondTestFrame.this, "Correct!");
                     if(numberTest < digits.length - 1) {
                         Main.setPoints(+5);
                         addDigit(++numberTest);
                     }
 
                 } else {
-                    JOptionPane.showMessageDialog(AppSecondTestFrame.this,
-                            "Unfortunalety, the number entered is not the same as " +
-                            "in the image. Try again.", "Incorrect!", JOptionPane.WARNING_MESSAGE);
                     Main.setPoints(-5);
                 }
             }
 
         });
-
 
         returnButton.addActionListener(e -> {
             AppInformationFrame appInformationFrame = new AppInformationFrame("First");

@@ -34,7 +34,7 @@ public class Main {
         Main.surname = surname;
     }
 
-    public String getSurname() {
+    public static String getSurname() {
         return surname;
     }
 
