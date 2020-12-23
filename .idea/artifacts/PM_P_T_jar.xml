@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="PM_P_T:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/PM_P_T_jar</output-path>
+    <root id="archive" name="PM_P_T.jar">
+      <element id="module-output" name="PM_P_T" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/jfreechart-1.5.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
