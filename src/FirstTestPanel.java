@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.Random;
 import java.util.TimerTask;
 
+/// TODO: CHECK THE NUMBER OF RED BALL APPEARANCE, LIMIT THE TIME,
 
 public class FirstTestPanel extends JPanel implements ActionListener {
 

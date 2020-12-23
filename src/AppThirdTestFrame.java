@@ -20,18 +20,19 @@ public class AppThirdTestFrame extends JFrame {
 
     private JLabel headerLabel;
 
-    Clip clip;
-    FloatControl gainControl;
+    private ArrayList<JButton> volumeButtons = new ArrayList<>();
+    private ArrayList<AppThirdTestSound> sounds = new ArrayList<>();
 
+    float soundVolume;
 
     java.util.Timer timer = new Timer();
     int counter;
 
-
     public AppThirdTestFrame() {
-        playSound();
         super.setTitle("Psychomotor Performance Tester | Third test");
+
         initUI();
+        initSound();
     }
 
     private void initUI() {
@@ -43,25 +44,15 @@ public class AppThirdTestFrame extends JFrame {
         createPanels();
         createInformationHeader();
         addButtons(panels);
+    }
 
-        /* Spinner */
+    private void initSound() {
+        for(int i = 0; i <= 10; i++) {
+            soundVolume = ((float)11-i)*-1;
+            sounds.add(new AppThirdTestSound(soundVolume));
+        }
 
-        SpinnerModel model = new SpinnerNumberModel(5, 0, 10, 1);
-        JSpinner spinnerSound = new JSpinner(model);
-        spinnerSound.setFont(spinnerSound.getFont().deriveFont(50f));
-        stream(spinnerSound)
-                .filter(JButton.class::isInstance).map(JButton.class::cast)
-                .forEach(b -> {
-                    Dimension d = b.getPreferredSize();
-                    d.width = 50;
-                    b.setPreferredSize(d);
-                });
-
-        ((JSpinner.DefaultEditor) spinnerSound.getEditor()).getTextField().setEditable(false);
-
-        panels.get(0).add(Box.createVerticalStrut(200));
-
-        panels.get(0).add(spinnerSound);
+        sounds.get(0).play();
     }
 
     private void createPanels() {
@@ -101,10 +92,35 @@ public class AppThirdTestFrame extends JFrame {
     }
 
     public void addButtons(ArrayList<JPanel> panels) {
+
+        panels.get(0).add(Box.createVerticalStrut(200));
+
+        for(Integer i = 0; i <= 10; i++) {
+            volumeButtons.add(new JButton(i.toString()));
+            panels.get(0).add(volumeButtons.get(i));
+
+
+            Integer finalI1 = i;
+            volumeButtons.get(i).addActionListener(e -> {
+
+                sounds.get(finalI1).play();
+
+                for(int k = 0; k <= 10; k++) {
+                    if (k != finalI1) {
+                        sounds.get(k).stop();
+                    }
+                }
+
+            });
+
+            System.out.println(i.toString());
+        }
+
         StyledButtonUI.setDesign(2);
         JButton nextButton = new JButton(" NEXT ");
         JButton okButton = new JButton(" HEAR ");
         JButton returnButton = new JButton("RETURN");
+
         nextButton.setUI(new StyledButtonUI());
         okButton.setUI(new StyledButtonUI());
         returnButton.setUI(new StyledButtonUI());
@@ -134,12 +150,12 @@ public class AppThirdTestFrame extends JFrame {
             AppThirdTestFrame.this.dispose();
         });
 
+
         panels.get(2).add(returnButton);
         panels.get(2).add(Box.createHorizontalStrut(200));
         panels.get(2).add(okButton);
         panels.get(2).add(Box.createHorizontalStrut(200));
         panels.get(2).add(nextButton);
-
     }
 
     private void addClock() {
@@ -161,31 +177,5 @@ public class AppThirdTestFrame extends JFrame {
         return trainingPhase;
     }
 
-    /* Manage sound */
-
-    public void playSound() {
-        try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("Resources/Sounds/1_0.wav"));
-            clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-
-            gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gainControl.setValue(-10.0f); // Reduce volume by 10 decibels.
-
-            clip.start();
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
-
-            // If you want the sound to loop infinitely, then put: clip.loop(Clip.LOOP_CONTINUOUSLY);
-            // If you want to stop the sound, then use clip.stop();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    private static Stream<Component> stream(Container parent) {
-        return Stream.of(parent.getComponents())
-                .filter(Container.class::isInstance).map(c -> stream(Container.class.cast(c)))
-                .reduce(Stream.of(parent), Stream::concat);
-    }
 
 }
