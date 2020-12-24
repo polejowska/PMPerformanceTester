@@ -2,8 +2,6 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -12,9 +10,6 @@ import java.util.ArrayList;
 public class AppResultsFrame extends JFrame{
 
     private final ArrayList<JPanel> panels = new ArrayList<>();
-    private AppFirstTestFrame appFirstTestFrame;
-    private AppSecondTestFrame appSecondTestFrame;
-    private AppThirdTestFrame appThirdTestFrame;
     private final JTextArea jTextArea = new JTextArea();
 
 
@@ -95,16 +90,25 @@ public class AppResultsFrame extends JFrame{
     }
 
     public void addButtons(ArrayList<JPanel> panels) {
+
         StyledButtonUI.setDesign(1);
         JButton nextButton = new JButton(" EXIT ");
+        JButton showButton = new JButton(" SHOW CHART ");
         JButton returnButton = new JButton("RETURN");
         nextButton.setUI(new StyledButtonUI());
+        showButton.setUI(new StyledButtonUI());
         returnButton.setUI(new StyledButtonUI());
 
         nextButton.addActionListener(e -> {
-            JOptionPane.showMessageDialog(AppResultsFrame.this, "Now, you will start the training phase.");
-
             AppResultsFrame.this.dispose();
+            System.exit(0);
+        });
+
+        showButton.addActionListener(e -> {
+            BarChart example = new BarChart("Results");
+            example.setSize(800, 400);
+            example.setLocationRelativeTo(null);
+            example.setVisible(true);
         });
 
         returnButton.addActionListener(e -> {
@@ -113,7 +117,9 @@ public class AppResultsFrame extends JFrame{
         });
 
         panels.get(2).add(returnButton);
-        panels.get(2).add(Box.createHorizontalStrut(200));
+        panels.get(2).add(Box.createHorizontalStrut(100));
+        panels.get(2).add(showButton);
+        panels.get(2).add(Box.createHorizontalStrut(100));
         panels.get(2).add(nextButton);
     }
 

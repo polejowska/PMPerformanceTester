@@ -149,7 +149,6 @@ public class AppThirdTestFrame extends JFrame {
             AppThirdTestFrame.this.dispose();
         });
 
-
         panels.get(2).add(returnButton);
         panels.get(2).add(Box.createHorizontalStrut(200));
         panels.get(2).add(okButton);

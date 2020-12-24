@@ -1,3 +1,6 @@
+import javax.swing.*;
+import java.lang.reflect.InvocationTargetException;
+
 public class Main {
 
     private static final AppStartFrame appStartFrame = new AppStartFrame();
@@ -37,6 +40,7 @@ public class Main {
     public static String getSurname() {
         return surname;
     }
+
 
 
 }

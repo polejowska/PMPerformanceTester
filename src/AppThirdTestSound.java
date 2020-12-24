@@ -10,7 +10,6 @@ public class AppThirdTestSound {
     FloatControl gainControl;
 
     public AppThirdTestSound (float soundVolume) {
-
         try {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("Resources/Sounds/1_0.wav"));
             clip = AudioSystem.getClip();
@@ -20,11 +19,10 @@ public class AppThirdTestSound {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
     }
 
     public void play(){
-        clip.setFramePosition(0);  // Must always rewind!
+        clip.setFramePosition(0);
         clip.start();
     }
 
