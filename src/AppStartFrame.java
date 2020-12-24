@@ -79,10 +79,11 @@ public class AppStartFrame extends JFrame {
     private void startButtonClick() {
         startButton.addActionListener(e -> {
             if ((nameText.getText().length() <= 2 || nameText.getText().equals("Name"))
-                    && (surnameText.getText().length() <= 2 || surnameText.getText().equals("Surname"))) {
+                    && (surnameText.getText().length() <= 2 || surnameText.getText().equals("Surname")))
+            {
                 JOptionPane.showMessageDialog(AppStartFrame.this,
-                        "Please, enter valid credentials to start the tests. " + nameText.getText()
-                                + " " + surnameText.getText() + " is invalid. ");
+                        "Please, enter valid credentials to start the tests. "
+                                + nameText.getText() + " " + surnameText.getText() + " is invalid. ");
             } else {
                 Main.setName(nameText.getText());
                 Main.setSurname(surnameText.getText());

@@ -112,7 +112,6 @@ public class AppThirdTestFrame extends JFrame {
                 }
 
             });
-
         }
 
         StyledButtonUI.setDesign(2);
@@ -138,13 +137,20 @@ public class AppThirdTestFrame extends JFrame {
         });
 
         okButton.addActionListener(e -> {
-
-            Main.setPoints3(11-soundVolClicked);
-
+            if(!trainingPhase) {
+                Main.setPoints3((11-soundVolClicked)*(30-counter));
+                appResultsFrame.setVisible(true);
+                AppThirdTestFrame.this.dispose();
+            }
+            else {
+                JOptionPane.showMessageDialog(AppThirdTestFrame.this, "You hear the sound at the "
+                                                + soundVolClicked + " volume level. You would get points for this test according to the formula: "
+                                                + (11-soundVolClicked) + "*(30-counter)");
+            }
         });
 
         returnButton.addActionListener(e -> {
-            AppInformationFrame appInformationFrame = new AppInformationFrame("First");
+            AppInformationFrame appInformationFrame = new AppInformationFrame("Second");
             appInformationFrame.setVisible(true);
             AppThirdTestFrame.this.dispose();
         });
@@ -162,7 +168,11 @@ public class AppThirdTestFrame extends JFrame {
             @Override
             public void run() {
                 counter++;
-                headerLabel.setText("Time: " + (int)counter + " s " + " Points: " + Main.getPoints3());
+                if(counter > 30) {
+                    appResultsFrame.setVisible(true);
+                    AppThirdTestFrame.this.dispose();
+                }
+                headerLabel.setText("Time: " + (int)counter + " s ");
             }
         }, 1000, 1000);
     }

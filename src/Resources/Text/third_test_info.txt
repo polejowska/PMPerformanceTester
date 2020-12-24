@@ -1,12 +1,13 @@
 Information about the third test.
 
-Please, put on headphones and change volume to 70 in order to get correct results.
+Please, put on headphones and change volume to 70 in order to get reliable results.
 
 The sound is played when the third test starts.
+You have 30 seconds for the examining phase.
 The volume level can be adjusted according to the scale display.
 If you do not hear the sound, increase the level.
 If you hear the sound, please click the "HEAR" button.
 
-Click next if you are ready to start the last test.
+Click "NEXT" if you are ready to start the last test.
 
 Good luck!

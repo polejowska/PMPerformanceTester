@@ -3,5 +3,6 @@ Welcome to the second test!
 The aim of this test is to check your eyesight and ability to see colors.
 Now, your task is to recognize the digits properly and enter them
 in the textfield and click "OK" to proceed to the next digit.
+You have one minute to recognize digits in the examining phase.
 
 Good luck again!

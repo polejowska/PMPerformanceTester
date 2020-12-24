@@ -1,6 +1,3 @@
-import javax.swing.*;
-import java.lang.reflect.InvocationTargetException;
-
 public class Main {
 
     private static final AppStartFrame appStartFrame = new AppStartFrame();
@@ -17,7 +14,7 @@ public class Main {
         appStartFrame.setVisible(true);
     }
 
-    // Updating points
+    /* Updating points */
 
     public static void setPoints1(float points) {
         Main.points1Test = points;
@@ -26,7 +23,6 @@ public class Main {
     public static float getPoints1() {
         return points1Test;
     }
-
     public static void setPoints2(float points) {
         Main.points2Test += points;
     }
@@ -42,6 +38,8 @@ public class Main {
     public static float getPoints3() {
         return points3Test;
     }
+
+    /* End of Updating points */
 
     public static void setName(String name) {
         Main.name = name;

@@ -6,5 +6,6 @@ If you click at the right moment, when the red circle appears, you gain +2 point
 
 Be careful, you should not click the black field. Otherwise, your total score will
 be reduced by 4 points every time you click the black field.
+In the examining phase you have one minute.
 
 Good luck!
