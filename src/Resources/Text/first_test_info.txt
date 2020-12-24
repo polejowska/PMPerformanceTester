@@ -1,3 +1,10 @@
-Information about the First Test.
-Here, your reflex will be tested.
-You need to point the circle.
+
+Here, your reflex and eye-hand coordination will be tested.
+You need to click the RED circle as soon as it appears.
+If you click at the circle when the different color appears, you get -2 points.
+If you click at the right moment, when the red circle appears, you gain +2 points.
+
+Be careful, you should not click the black field. Otherwise, your total score will
+be reduced by 4 points every time you click the black field.
+
+Good luck!

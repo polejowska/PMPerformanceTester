@@ -192,12 +192,12 @@ public class AppSecondTestFrame extends JFrame {
                 repaint();
                 if (("Resources/Images/" + textDigits.getText() + ".gif").equals(digits[numberTest])) {
                     if(numberTest < digits.length - 1) {
-                        Main.setPoints(+5);
+                        Main.setPoints2(+5);
                         addDigit(++numberTest);
                     }
 
                 } else {
-                    Main.setPoints(-5);
+                    Main.setPoints2(-5);
                 }
             }
 
@@ -222,7 +222,7 @@ public class AppSecondTestFrame extends JFrame {
             @Override
             public void run() {
                 counter++;
-                headerLabel.setText("Time: " + (int)counter + " s " + " Points: " + Main.getPoints());
+                headerLabel.setText("Time: " + (int)counter + " s " + " Points: " + Main.getPoints2());
             }
         }, 1000, 1000);
     }

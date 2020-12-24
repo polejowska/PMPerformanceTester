@@ -140,7 +140,13 @@ public class AppFirstTestFrame extends JFrame{
             @Override
             public void run() {
                 counter++;
-                headerLabel.setText("Time: " + (int)counter + " s " + " Points: " + Main.getPoints());
+                if(counter > 60) {
+                    appSecondInformationFrame = new AppInformationFrame("Second");
+                    appSecondInformationFrame.setVisible(true);
+                    AppFirstTestFrame.this.dispose();
+                    timer.cancel();
+                }
+                headerLabel.setText("Time: " + (int)counter + " s " + " Points: " + FirstTestPanel.getPoints());
             }
         }, 1000, 1000);
     }

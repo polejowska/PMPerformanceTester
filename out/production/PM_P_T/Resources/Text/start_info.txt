@@ -1,7 +1,8 @@
 This application will test your psychomotor performance.
-You will have to go through 3 tests to get the results.
-Before every actual test, you will be instructed by specially prepared training phase.
+You will have to go through 3 different tests to get the results.
+The results will be available in synthetic and analytical form.
+Before every actual test, you will be informed about the test itself
+and you will be instructed by specially prepared training phase.
 
 
-Good luck!
 

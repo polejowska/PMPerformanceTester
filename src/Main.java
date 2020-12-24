@@ -7,7 +7,7 @@ public class Main {
 
     private static String name;
     private static String surname;
-    private static float points;
+    private static float points1Test, points2Test, points3Test;
 
     public static void main(String[] args) {
         appStartFrame.setVisible(true);
@@ -17,12 +17,30 @@ public class Main {
         appStartFrame.setVisible(true);
     }
 
-    public static void setPoints(float points) {
-        Main.points += points;
+    // Updating points
+
+    public static void setPoints1(float points) {
+        Main.points1Test = points;
     }
 
-    public static float getPoints() {
-        return points;
+    public static float getPoints1() {
+        return points1Test;
+    }
+
+    public static void setPoints2(float points) {
+        Main.points2Test += points;
+    }
+
+    public static float getPoints2() {
+        return points2Test;
+    }
+
+    public static void setPoints3(float points) {
+        Main.points3Test += points;
+    }
+
+    public static float getPoints3() {
+        return points3Test;
     }
 
     public static void setName(String name) {
@@ -40,8 +58,6 @@ public class Main {
     public static String getSurname() {
         return surname;
     }
-
-
 
 }
 

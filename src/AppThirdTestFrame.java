@@ -139,7 +139,7 @@ public class AppThirdTestFrame extends JFrame {
 
         okButton.addActionListener(e -> {
 
-            Main.setPoints(11-soundVolClicked);
+            Main.setPoints3(11-soundVolClicked);
 
         });
 
@@ -162,7 +162,7 @@ public class AppThirdTestFrame extends JFrame {
             @Override
             public void run() {
                 counter++;
-                headerLabel.setText("Time: " + (int)counter + " s " + " Points: " + Main.getPoints());
+                headerLabel.setText("Time: " + (int)counter + " s " + " Points: " + Main.getPoints3());
             }
         }, 1000, 1000);
     }

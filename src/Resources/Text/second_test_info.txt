@@ -1,6 +1,7 @@
 Welcome to the second test!
-Now, your task is to recognize the digits properly
-and enter them in the textfield and click "OK"
-to proceed to the next digit.
+
+The aim of this test is to check your eyesight and ability to see colors.
+Now, your task is to recognize the digits properly and enter them
+in the textfield and click "OK" to proceed to the next digit.
 
 Good luck again!

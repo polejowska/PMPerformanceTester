@@ -9,7 +9,6 @@ import java.net.URL;
 import java.util.Random;
 import java.util.TimerTask;
 
-/// TODO: CHECK THE NUMBER OF RED BALL APPEARANCE, LIMIT THE TIME,
 
 public class FirstTestPanel extends JPanel implements ActionListener {
 
@@ -23,10 +22,11 @@ public class FirstTestPanel extends JPanel implements ActionListener {
 
     private String imgPath;
     private BufferedImage circle;
+    private static int redCircleAppear = 0;
+    private static int redCircleClicked = 0;
+    private static int points = 0;
 
     private final Random rand = new Random();
-
-    private String saveTimeState;
 
     private int xSpeed = 2;
     private int ySpeed = 2;
@@ -53,7 +53,12 @@ public class FirstTestPanel extends JPanel implements ActionListener {
             public void run()
             {
                 try {
-                    imgPath = imgPaths[random()];
+                    int rand = random();
+                    // If the red ball appeared
+                    if(rand == 4) {
+                        redCircleAppear++;
+                    }
+                    imgPath = imgPaths[rand];
                     URL url = getClass().getResource(imgPath);
                     File file = new File(url.getPath());
                     circle = ImageIO.read(file);
@@ -66,7 +71,7 @@ public class FirstTestPanel extends JPanel implements ActionListener {
         // Timer for balls color change
         java.util.Timer timer1 = new java.util.Timer();
         TimerTask task = new MyTimerTask();
-        timer1.scheduleAtFixedRate(task, 100, 700);
+        timer1.scheduleAtFixedRate(task, 100, 1000);
 
         // Check if clicked correctly
         this.addMouseListener(new MouseAdapter() {
@@ -80,9 +85,9 @@ public class FirstTestPanel extends JPanel implements ActionListener {
                     // If in training phase, show prompts
                      if(AppFirstTestFrame.getTrainingPhase()) {
                          if(imgPath != null && imgPath.equals(imgPaths[4])) {
-                            JOptionPane.showMessageDialog(FirstTestPanel.this,"" +
-                                    "Correct! You have to click the circle" +
-                                    " when red circle appears. ");
+                            JOptionPane.showMessageDialog(FirstTestPanel.this,
+                                    "Correct! You have to click the circle"
+                                            + " when red circle appears. ");
                         } else {
                              JOptionPane.showMessageDialog(FirstTestPanel.this,
                                      "Incorrect! You have to click the circle if and only if" +
@@ -91,10 +96,13 @@ public class FirstTestPanel extends JPanel implements ActionListener {
                     } // If not in training phase, update points
                      else {
                          if(imgPath != null && imgPath.equals(imgPaths[4])) {
-                             Main.setPoints(10);
+                             redCircleClicked++;
+                             points += 2;
+                             Main.setPoints1(points);
                          }
                          else {
-                             Main.setPoints(-10);
+                             points -= 2;
+                             Main.setPoints1(points);
                          }
                      }
                 } // Check if clicked the field outside the ball
@@ -103,9 +111,9 @@ public class FirstTestPanel extends JPanel implements ActionListener {
                         JOptionPane.showMessageDialog(FirstTestPanel.this, "You have to click on the moving ball!",
                                 "Incorrect!", JOptionPane.WARNING_MESSAGE);
                     } else {
-                        Main.setPoints(-10);
+                        points -= 4;
+                        Main.setPoints1(points);
                     }
-
                 }
             }
         });
@@ -137,6 +145,18 @@ public class FirstTestPanel extends JPanel implements ActionListener {
 
     public int random() {
         return rand.nextInt(5);
+    }
+
+    public static int getRedCircleAppear() {
+        return redCircleAppear;
+    }
+
+    public static int getRedCircleClicked() {
+        return redCircleClicked;
+    }
+
+    public static int getPoints() {
+        return points;
     }
 
 }
