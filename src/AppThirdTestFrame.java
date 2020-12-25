@@ -6,7 +6,6 @@ import java.util.*;
 import java.util.Timer;
 
 
-
 public class AppThirdTestFrame extends JFrame {
 
     private final ArrayList<JPanel> panels = new ArrayList<>();
@@ -16,14 +15,14 @@ public class AppThirdTestFrame extends JFrame {
 
     private JLabel headerLabel;
 
-    private ArrayList<JButton> volumeButtons = new ArrayList<>();
-    private ArrayList<AppThirdTestSound> sounds = new ArrayList<>();
+    private final ArrayList<JButton> volumeButtons = new ArrayList<>();
+    private final ArrayList<AppThirdTestSound> sounds = new ArrayList<>();
 
     float soundVolume;
     int soundVolClicked;
 
-    java.util.Timer timer = new Timer();
-    int counter;
+    private Timer timer = new Timer();
+    private int counter;
 
     public AppThirdTestFrame() {
         super.setTitle("Psychomotor Performance Tester | Third test");
@@ -96,7 +95,6 @@ public class AppThirdTestFrame extends JFrame {
             volumeButtons.add(new JButton(i.toString()));
             panels.get(0).add(volumeButtons.get(i));
 
-
             Integer finalI1 = i;
 
             volumeButtons.get(i).addActionListener(e -> {
@@ -138,14 +136,23 @@ public class AppThirdTestFrame extends JFrame {
 
         okButton.addActionListener(e -> {
             if(!trainingPhase) {
-                Main.setPoints3((11-soundVolClicked)*(30-counter));
+                Main.setPoints3((11-soundVolClicked)*((float)0.1 * (30-counter)));
+
+                for(int k = 0; k <= 10; k++) {
+                        sounds.get(k).stop();
+                }
+
                 appResultsFrame.setVisible(true);
                 AppThirdTestFrame.this.dispose();
             }
             else {
-                JOptionPane.showMessageDialog(AppThirdTestFrame.this, "You hear the sound at the "
-                                                + soundVolClicked + " volume level. You would get points for this test according to the formula: "
-                                                + (11-soundVolClicked) + "*(30-counter)");
+                JOptionPane.showMessageDialog(AppThirdTestFrame.this,
+                        "You hear the sound at the " + soundVolClicked
+                                + " volume level. You would get points for this test according to the formula: "
+                                + (11-soundVolClicked) + "*(0.1 * (30-counter))");
+                for(int k = 0; k <= 10; k++) {
+                    sounds.get(k).stop();
+                }
             }
         });
 
@@ -171,14 +178,12 @@ public class AppThirdTestFrame extends JFrame {
                 if(counter > 30) {
                     appResultsFrame.setVisible(true);
                     AppThirdTestFrame.this.dispose();
+                    timer.cancel();
+
                 }
-                headerLabel.setText("Time: " + (int)counter + " s ");
+                headerLabel.setText("Time: " + counter + " s ");
             }
         }, 1000, 1000);
-    }
-
-    public void setTrainingPhase(Boolean trainingPhase) {
-        AppThirdTestFrame.trainingPhase = trainingPhase;
     }
 
     public static Boolean getTrainingPhase() {

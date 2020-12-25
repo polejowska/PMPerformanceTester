@@ -1,5 +1,4 @@
 import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -45,15 +44,15 @@ public class BarChart extends JFrame {
 
         // First test results
         dataset.addValue(Main.getPoints1(), Main.getName() + " " + Main.getSurname() + " points", "First test");
-        dataset.addValue(15, "Average points", "First test");
+        dataset.addValue(8, "Average points", "First test");
 
         // Second test results
         dataset.addValue(Main.getPoints2(), Main.getName() + " " + Main.getSurname() + " points", "Second test");
-        dataset.addValue(5, "Average points", "Second test");
+        dataset.addValue(8, "Average points", "Second test");
 
         // Third test results
         dataset.addValue(Main.getPoints3(), Main.getName() + " " + Main.getSurname() + " points", "Third test");
-        dataset.addValue(35, "Average points", "Third test");
+        dataset.addValue(20, "Average points", "Third test");
 
         return dataset;
     }

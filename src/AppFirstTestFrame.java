@@ -2,10 +2,6 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -16,20 +12,17 @@ public class AppFirstTestFrame extends JFrame{
 
     AppInformationFrame appSecondInformationFrame;
 
-    private JLabel counterLabel;
     private JLabel headerLabel;
-    private Boolean counterFlag = false;
     private float counter;
     private static Boolean trainingPhase = true;
 
-    Timer timer = new Timer();
+    private Timer timer = new Timer();
 
     public AppFirstTestFrame() {
         super.setTitle("Psychomotor Performance Tester | First test");
         initUI();
 
         trainingPhase = true;
-        //runTimer();
     }
 
     private void initUI() {
@@ -42,21 +35,7 @@ public class AppFirstTestFrame extends JFrame{
         createInformationHeader();
         addButtons(panels);
     }
-/*
-    private void runTimer() {
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                if(counterFlag){
-                    //
-                }
-                else {
-                    //
-                }
-            }
-        }, 1000, 1000);
-    }
-*/
+
     private void createPanels() {
         LayoutManager flowLayout = new FlowLayout();
         Border borderLine = BorderFactory.createLineBorder(Color.lightGray);
@@ -107,7 +86,6 @@ public class AppFirstTestFrame extends JFrame{
         nextButton.addActionListener(e -> {
             if(trainingPhase) {
                 JOptionPane.showMessageDialog(AppFirstTestFrame.this, "Now, you will be examined.");
-                counterFlag = true;
                 trainingPhase = false;
                 addClock();
             }
@@ -149,10 +127,6 @@ public class AppFirstTestFrame extends JFrame{
                 headerLabel.setText("Time: " + (int)counter + " s " + " Points: " + FirstTestPanel.getPoints());
             }
         }, 1000, 1000);
-    }
-
-    public static void setTrainingPhase(Boolean trainingPhase) {
-        AppFirstTestFrame.trainingPhase = trainingPhase;
     }
 
     public static Boolean getTrainingPhase() {

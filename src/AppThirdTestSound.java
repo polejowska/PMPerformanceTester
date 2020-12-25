@@ -8,7 +8,8 @@ public class AppThirdTestSound {
 
     public AppThirdTestSound (float soundVolume) {
         try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("Resources/Sounds/1_0.wav"));
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(this.getClass()
+                    .getResource("Resources/Sounds/1_0.wav"));
             clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
@@ -23,11 +24,8 @@ public class AppThirdTestSound {
         clip.start();
     }
 
-    public void loop(){
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
-    }
-
     public void stop(){
         clip.stop();
     }
 }
+

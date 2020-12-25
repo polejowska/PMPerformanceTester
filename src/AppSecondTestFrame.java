@@ -24,15 +24,15 @@ public class AppSecondTestFrame extends JFrame {
     private BufferedImage imageDigit;
 
     private final String [] digits = {
-            "Resources/Images/2.gif", "Resources/Images/5.gif", "Resources/Images/6.gif",  "Resources/Images/7.gif",
-            "Resources/Images/12.gif", "Resources/Images/25.gif", "Resources/Images/45.gif", "Resources/Images/73.gif",
-            "Resources/Images/97.gif"
+            "Resources/Images/2.gif", "Resources/Images/5.gif", "Resources/Images/6.gif",
+            "Resources/Images/7.gif", "Resources/Images/12.gif", "Resources/Images/25.gif",
+            "Resources/Images/45.gif", "Resources/Images/73.gif", "Resources/Images/97.gif"
     };
 
     JTextField textDigits;
     int numberTrain, numberTest;
 
-    java.util.Timer timer = new Timer();
+    private Timer timer = new Timer();
     private float counter;
 
     private int x, y;
@@ -186,7 +186,6 @@ public class AppSecondTestFrame extends JFrame {
                             "Unfortunalety, the number entered is not the same as " +
                             "in the image. Try again.", "Incorrect!", JOptionPane.WARNING_MESSAGE);
                 }
-
             }
             else {
                 repaint();
@@ -225,6 +224,7 @@ public class AppSecondTestFrame extends JFrame {
                 if(counter > 60) {
                     appThirdInformationFrame.setVisible(true);
                     AppSecondTestFrame.this.dispose();
+                    timer.cancel();
                 }
                 headerLabel.setText("Time: " + (int)counter + " s " + " Points: " + Main.getPoints2());
             }

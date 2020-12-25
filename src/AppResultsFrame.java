@@ -12,7 +12,6 @@ public class AppResultsFrame extends JFrame{
     private final ArrayList<JPanel> panels = new ArrayList<>();
     private final JTextArea jTextArea = new JTextArea();
 
-
     AppResultsFrame() {
         super.setTitle("Psychomotor Performance Tester | " + Main.getName() + " " + Main.getSurname() + " results ");
 
@@ -27,7 +26,7 @@ public class AppResultsFrame extends JFrame{
 
         createPanels();
         createInformationHeader();
-        loadTextInfo();
+        loadText();
         addButtons(panels);
     }
 
@@ -67,7 +66,7 @@ public class AppResultsFrame extends JFrame{
         panels.get(1).add(headerLabel);
     }
 
-    public void loadTextInfo() {
+    public void loadText() {
         jTextArea.setBorder(new EmptyBorder(40,0,0,0));
         jTextArea.setFont(new Font("Calibri", Font.PLAIN, 20));
         jTextArea.setHighlighter(null);
@@ -86,8 +85,13 @@ public class AppResultsFrame extends JFrame{
             ioe.printStackTrace();
         }
 
+        this.jTextArea.append("\n");
+        this.jTextArea.append("Total score from first and second test: " + Main.getTotal());
+        this.jTextArea.append("\nThe score from the third test is presented in the chart.");
+
         panels.get(0).add(jTextArea);
     }
+
 
     public void addButtons(ArrayList<JPanel> panels) {
 

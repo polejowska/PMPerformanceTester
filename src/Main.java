@@ -23,6 +23,7 @@ public class Main {
     public static float getPoints1() {
         return points1Test;
     }
+
     public static void setPoints2(float points) {
         Main.points2Test += points;
     }
@@ -32,7 +33,7 @@ public class Main {
     }
 
     public static void setPoints3(float points) {
-        Main.points3Test += points;
+        Main.points3Test = points;
     }
 
     public static float getPoints3() {
@@ -40,6 +41,10 @@ public class Main {
     }
 
     /* End of Updating points */
+
+    public static float getTotal() {
+        return points1Test + points2Test + points3Test;
+    }
 
     public static void setName(String name) {
         Main.name = name;

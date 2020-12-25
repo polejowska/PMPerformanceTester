@@ -16,8 +16,8 @@ public class FirstTestPanel extends JPanel implements ActionListener {
     private final int PANEL_HEIGHT = 480;
 
     private final String [] imgPaths = {
-            "Resources/Images/circle_blue.png", "Resources/Images/circle_green.png", "Resources/Images/circle.png",
-            "Resources/Images/circle_orange.png", "Resources/Images/circle_red.png", "Resources/Images/circle_transparent.png"
+            "Resources/Images/circle_green.png", "Resources/Images/circle_orange.png",
+            "Resources/Images/circle_red.png", "Resources/Images/circle_transparent.png"
     };
 
     private String imgPath;
@@ -55,7 +55,7 @@ public class FirstTestPanel extends JPanel implements ActionListener {
                 try {
                     int rand = random();
                     // If the red ball appeared
-                    if(rand == 4) {
+                    if(rand == 2) {
                         redCircleAppear++;
                     }
                     imgPath = imgPaths[rand];
@@ -84,7 +84,7 @@ public class FirstTestPanel extends JPanel implements ActionListener {
                 if (bounds.contains(clicked)) {
                     // If in training phase, show prompts
                      if(AppFirstTestFrame.getTrainingPhase()) {
-                         if(imgPath != null && imgPath.equals(imgPaths[4])) {
+                         if(imgPath != null && imgPath.equals(imgPaths[2])) {
                             JOptionPane.showMessageDialog(FirstTestPanel.this,
                                     "Correct! You have to click the circle"
                                             + " when red circle appears. ");
@@ -95,7 +95,7 @@ public class FirstTestPanel extends JPanel implements ActionListener {
                          }
                     } // If not in training phase, update points
                      else {
-                         if(imgPath != null && imgPath.equals(imgPaths[4])) {
+                         if(imgPath != null && imgPath.equals(imgPaths[2])) {
                              redCircleClicked++;
                              points += 2;
                              Main.setPoints1(points);
@@ -144,7 +144,7 @@ public class FirstTestPanel extends JPanel implements ActionListener {
     }
 
     public int random() {
-        return rand.nextInt(5);
+        return rand.nextInt(3);
     }
 
     public static int getRedCircleAppear() {
